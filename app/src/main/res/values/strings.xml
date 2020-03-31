@@ -1,0 +1,4 @@
+<resources>
+	<string name="app_name">PwdNote</string>
+	<string name="add_pwd">添加密码</string>
+</resources>
