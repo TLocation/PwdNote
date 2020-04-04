@@ -1,17 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
     <EditText
-        android:digits="0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@."
-        android:id="@+id/dialogUsername"
-        android:hint="输入用户名"
+        android:id="@+id/dialogTitle"
         android:layout_width="match_parent"
-        android:layout_height="50dp"/>
+        android:layout_height="@dimen/edit_view_height"
+        android:hint="@string/input_title_hint" />
+
+    <EditText
+        android:id="@+id/dialogUsername"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/dialogTitle"
+        android:digits="0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@."
+        android:hint="@string/input_user_hint" />
+
     <EditText
         android:id="@+id/dialogPwd"
-        android:hint="输入密码"
         android:layout_width="match_parent"
-        android:layout_height="50dp"/>
-</LinearLayout>
+        android:layout_height="50dp"
+        android:layout_below="@id/dialogUsername"
+        android:hint="@string/input_pwd_hint" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dialogPwd"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/dialog_btn_cancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="取消" />
+
+        <Button
+            android:id="@+id/dialog_btn_confirm"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="确定"
+             />
+    </LinearLayout>
+</RelativeLayout>

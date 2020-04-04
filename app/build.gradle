@@ -6,14 +6,20 @@ android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
 
+
     defaultConfig {
         applicationId "com.location.pwdnote"
         minSdkVersion 24
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        //加载资源
+        Properties properties = new Properties()
+        InputStream inputStream = project.rootProject.file('local.properties').newDataInputStream() ;
+        properties.load( inputStream )
+        buildConfigField "String", "PUBLIC_KEY", "\"${properties.getProperty('public_key')}\""
+        buildConfigField "String", "PRIVATE_KEY", "\"${properties.getProperty('private_key')}\""
     }
 
     buildTypes {

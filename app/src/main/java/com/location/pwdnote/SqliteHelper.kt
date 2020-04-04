@@ -29,18 +29,27 @@ import net.sqlcipher.database.SQLiteOpenHelper
             return instacne;
         }
     }
+    //表名字
     val TABLE_NAME = "pwd"
+    //用户名
     val USER_NAME = "userName"
+    //密码
     val EXERA_PWD = "pwd"
+    //id 自增
     val EXERA_ID = "id"
-    val EXERA_NAME = "name"
+    //名字
+    val EXERA_TITLE = "title"
+    //时间
     val EXERA_TIME = "time"
+    val COLUMN_PKG = "pkg"
+
 
     val SQL_MSG = "create table ${TABLE_NAME}($EXERA_ID integer primary key autoincrement," +
             "$USER_NAME Text," +
             "$EXERA_PWD Text," +
-            "$EXERA_NAME Text,"+
-            "$EXERA_TIME long" +
+            "$EXERA_TITLE Text,"+
+            "$EXERA_TIME long," +
+            "$COLUMN_PKG Text" +
             ")"
     var db:SQLiteDatabase? = null
 
@@ -50,18 +59,30 @@ import net.sqlcipher.database.SQLiteOpenHelper
     }
 
 
-    fun insert(userName:String,pwd:String,name:String):PwdData{
+    fun insert(userName:String,pwd:String,title:String):PwdData{
         checkDb()
-        val values = ContentValues(2)
+        val values = ContentValues(4)
         return values.run {
             put(USER_NAME,userName)
             put(EXERA_PWD,pwd)
-            put(EXERA_NAME,name)
+            put(EXERA_TITLE,title)
             put(EXERA_TIME,System.currentTimeMillis())
             val id =  db!!.insert(TABLE_NAME,null,values).toInt()
-            PwdData(userName, pwd, id,name)
+            PwdData(userName, pwd, id,title = title)
         }
 
+    }
+    fun insert(data:PwdData):PwdData{
+        checkDb()
+        val values = ContentValues(4)
+        return values.run {
+            put(USER_NAME,data.userName)
+            put(EXERA_PWD,data.pwd)
+            put(EXERA_TITLE,data.title)
+            put(EXERA_TIME,System.currentTimeMillis())
+            val id = db!!.insert(TABLE_NAME,null,values).toInt()
+            data.copy(id = id)
+        }
     }
 
     fun query():MutableList<PwdData>{
@@ -73,8 +94,8 @@ import net.sqlcipher.database.SQLiteOpenHelper
                 val username = getString(getColumnIndex(USER_NAME))
                 val pwd = getString(getColumnIndex(EXERA_PWD))
                 val id = getInt(getColumnIndex(EXERA_ID))
-                val name = getString(getColumnIndex(EXERA_NAME))
-                PwdData(userName = username,pwd = pwd,id = id,name = name)
+                val name = getString(getColumnIndex(EXERA_TITLE))
+                PwdData(userName = username,pwd = pwd,id = id,title = name)
             })
         }
         query.close()
