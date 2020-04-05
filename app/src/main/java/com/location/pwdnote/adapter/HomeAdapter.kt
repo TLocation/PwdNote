@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.location.pwdnote.PwdData
 import com.location.pwdnote.R
+import com.location.pwdnote.decryRsa
 
 /**
  *
@@ -46,6 +47,10 @@ class HomeAdapter :
         private val textPwdView: TextView by lazy { itemView.findViewById<TextView>(R.id.item_pwd) }
 
         fun bindItem(value: PwdData) {
+            if(value.lock){
+                value.lock = false
+                value.userName = value.userName.decryRsa()
+            }
             textUserName.text = value.title
             textPwdView.text = value.userName
         }

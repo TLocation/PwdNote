@@ -8,8 +8,10 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.MutableLiveData
+import com.location.pwdnote.App
 import com.location.pwdnote.PwdData
 import com.location.pwdnote.R
+import com.location.pwdnote.encryRsa
 
 /**
  *
@@ -19,7 +21,6 @@ import com.location.pwdnote.R
  */
 class InputPwdDialog : DialogFragment() {
 
-    val liveData = MutableLiveData<PwdData>()
     val userNameView by lazy { view!!.findViewById<EditText>(R.id.dialogUsername) }
     val userPwdView by lazy { view!!.findViewById<EditText>(R.id.dialogPwd) }
     val userTitleView by lazy { view!!.findViewById<EditText>(R.id.dialogTitle) }
@@ -37,11 +38,11 @@ class InputPwdDialog : DialogFragment() {
         view.findViewById<Button>(R.id.dialog_btn_confirm).setOnClickListener {
             val userName = userNameView?.text.toString()
             if (userName.isNotEmpty()) {
-                liveData.value = PwdData(
-                    userName,
-                    userPwdView.text.toString(),
+                App.pwdDatabase.pwdDao().insertUsers(PwdData(
+                    userName.encryRsa(),
+                    userPwdView.text.toString().encryRsa(),
                     title = userTitleView.text.toString()
-                )
+                ))
                 dismiss()
             }
         }
