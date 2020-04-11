@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
-import com.location.pwdnote.App
-import com.location.pwdnote.PwdData
-import com.location.pwdnote.R
-import com.location.pwdnote.encryRsa
+import com.location.pwdnote.*
+import com.location.pwdnote.modle.MainViewModle
 
 /**
  *
@@ -21,9 +21,10 @@ import com.location.pwdnote.encryRsa
  */
 class InputPwdDialog : DialogFragment() {
 
-    val userNameView by lazy { view!!.findViewById<EditText>(R.id.dialogUsername) }
-    val userPwdView by lazy { view!!.findViewById<EditText>(R.id.dialogPwd) }
-    val userTitleView by lazy { view!!.findViewById<EditText>(R.id.dialogTitle) }
+    private val userNameView by lazy { requireView().findViewById<EditText>(R.id.dialogUsername) }
+    private val userPwdView by lazy { requireView().findViewById<EditText>(R.id.dialogPwd) }
+    private val userTitleView by lazy { requireView().findViewById<EditText>(R.id.dialogTitle) }
+    private val viewModle by activityViewModels<MainViewModle>()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -38,12 +39,16 @@ class InputPwdDialog : DialogFragment() {
         view.findViewById<Button>(R.id.dialog_btn_confirm).setOnClickListener {
             val userName = userNameView?.text.toString()
             if (userName.isNotEmpty()) {
-                App.pwdDatabase.pwdDao().insertUsers(PwdData(
-                    userName.encryRsa(),
-                    userPwdView.text.toString().encryRsa(),
-                    title = userTitleView.text.toString()
-                ))
+                viewModle.savePwd(
+                    PwdData(
+                        userName.encryRsa(),
+                        userPwdView.text.toString().encryRsa(),
+                        title = userTitleView.text.toString()
+                    )
+                )
                 dismiss()
+            } else {
+                toast("请输入用户名")
             }
         }
 

@@ -1,2 +1,3 @@
 rootProject.name='PwdNote'
 include ':app'
+include ':base-lib'

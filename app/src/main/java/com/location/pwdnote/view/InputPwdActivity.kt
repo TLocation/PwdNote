@@ -1,8 +1,8 @@
 package com.location.pwdnote.view
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import com.location.pwdnote.R
 import com.location.pwdnote.adapter.InputPwdAdapter
@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.activity_input_pwd.*
 class InputPwdActivity : AppCompatActivity(R.layout.activity_input_pwd) {
 
 
-    private val viewModle by lazy { ViewModelProviders.of(this)[InputModle::class.java] }
+    private val viewModle by viewModels<InputModle>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

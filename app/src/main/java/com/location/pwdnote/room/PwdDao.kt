@@ -17,7 +17,7 @@ interface PwdDao {
     @Update
     fun updateUsers( pwdData: PwdData)
     @Delete
-    fun deleteUsers( pwdData: PwdData)
+    fun delete( pwdData: PwdData)
 
     @Query("SELECT * from pwd_table")
     fun queryPwdData():LiveData<List<PwdData>>

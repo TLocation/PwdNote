@@ -2,15 +2,18 @@ package com.location.pwdnote.view
 
 import android.os.Build
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.View
+import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.location.pwdnote.*
 import com.location.pwdnote.adapter.HomeAdapter
 import com.location.pwdnote.dialog.InputPwdDialog
+import com.location.pwdnote.dialog.PwdDetailsDialog
 import com.location.pwdnote.modle.MainViewModle
 import com.location.pwdnote.widget.FabScrollListener
 import com.location.pwdnote.widget.HideScrollListener
@@ -19,8 +22,9 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity(), HideScrollListener, View.OnClickListener {
 
 
-    private val viewModle by lazy { ViewModelProviders.of(this)[MainViewModle::class.java] }
-    private val adapter by lazy { HomeAdapter() }
+    private val viewModle by viewModels<MainViewModle>()
+
+    private val adapter by lazy { HomeAdapter(::itemClick) }
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,5 +54,15 @@ class MainActivity : AppCompatActivity(), HideScrollListener, View.OnClickListen
         dialog.show(supportFragmentManager, "InputPwdDialog")
     }
 
+    fun itemClick(position: Int) {
+        val dialog = PwdDetailsDialog()
+        val data =  viewModle.getPwdLiveData().value?.get(position) as Parcelable
+
+        dialog.arguments = bundleOf(
+          PwdDetailsDialog.EXERA_DATA to data
+        )
+
+        dialog.show(supportFragmentManager, "PwdDetailsDialog")
+    }
 
 }

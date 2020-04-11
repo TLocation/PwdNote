@@ -17,7 +17,7 @@ import com.location.pwdnote.decryRsa
  * time：2020/3/29 17:28
  * description：
  */
-class HomeAdapter :
+class HomeAdapter(val block: (position: Int) -> Unit) :
     ListAdapter<PwdData, HomeAdapter.HomeViewHolder>(HomeDiffCallback()) {
 
 
@@ -27,7 +27,7 @@ class HomeAdapter :
                 R.layout.item_home_pwd,
                 parent,
                 false
-            )
+            ), block = block
         )
 
 
@@ -36,18 +36,24 @@ class HomeAdapter :
     }
 
 
-     fun addData(data:PwdData){
-         val tempList = ArrayList<PwdData>(currentList)
-         tempList.add(data)
-         submitList(tempList)
-     }
-    class HomeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    fun addData(data: PwdData) {
+        val tempList = ArrayList<PwdData>(currentList)
+        tempList.add(data)
+        submitList(tempList)
+    }
+
+    class HomeViewHolder(itemView: View, val block: (position: Int) -> Unit) :
+        RecyclerView.ViewHolder(itemView) {
 
         private val textUserName: TextView by lazy { itemView.findViewById<TextView>(R.id.item_username) }
         private val textPwdView: TextView by lazy { itemView.findViewById<TextView>(R.id.item_pwd) }
 
+        init {
+            itemView.setOnClickListener { block.invoke(adapterPosition) }
+        }
+
         fun bindItem(value: PwdData) {
-            if(value.lock){
+            if (value.lock) {
                 value.lock = false
                 value.userName = value.userName.decryRsa()
             }

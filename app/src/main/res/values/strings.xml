@@ -1,7 +1,18 @@
 <resources>
-	<string name="app_name">PwdNote</string>
-	<string name="add_pwd">添加密码</string>
+    <string name="app_name">PwdNote</string>
+    <string name="add_pwd">添加密码</string>
     <string name="input_title_hint">输入标题 为空则使用用户名</string>
-	<string name="input_user_hint">输入用户名</string>
-	<string name="input_pwd_hint">输入密码</string>
+    <string name="input_user_hint">输入用户名</string>
+    <string name="input_pwd_hint">输入密码</string>
+    <string name="btn_update">更新</string>
+    <string name="btn_delete">删除</string>
+    <string name="btn_visable">显示</string>
+    <string name="show_details_username">用户名：%1$s</string>
+    <string name="show_details_pwd">密&#8195;码：%1$s</string>
+    <string name="show_details_copy_pwd">复制密码</string>
+    <string name="show_details_copy_user">复制帐号</string>
+    <string name="toast_copy">已复制</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

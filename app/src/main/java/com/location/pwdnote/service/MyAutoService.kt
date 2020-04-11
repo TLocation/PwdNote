@@ -16,7 +16,6 @@ class MyAutoService : AutofillService() {
     override fun onFillRequest(request: FillRequest,
         cancellationSignal: CancellationSignal, callback: FillCallback
     ) {
-        val s = "s"
     }
 
     override fun onSaveRequest(request: SaveRequest, callback: SaveCallback) {

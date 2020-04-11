@@ -47,7 +47,7 @@ fun encryptByPublicKey(input: String): String {
     var cipher = Cipher.getInstance(transformation)
     cipher.init(Cipher.ENCRYPT_MODE, publicKey)
 
-    var temp: ByteArray? = null
+    var temp: ByteArray?
     var offset = 0//当前偏移位置
     var bos = ByteArrayOutputStream()
     while (byteArray.size - offset > 0) {  //没有加密完成
@@ -76,7 +76,7 @@ fun decryptByPrivateKey(input: String): String {
     var cipher = Cipher.getInstance(transformation)
     cipher.init(Cipher.DECRYPT_MODE, privateKey)
 
-    var temp: ByteArray? = null
+    var temp: ByteArray?
     var offset = 0//当前偏移位置
     var bos = ByteArrayOutputStream()
     while (byteArray.size - offset > 0) {  //没有解密完成

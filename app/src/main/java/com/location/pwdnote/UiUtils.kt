@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 
 /**
@@ -21,4 +22,7 @@ fun FragmentActivity.startActivity(clazz: Class<out Activity>, bundle: Bundle? =
         intent.putExtras(bundle)
     }
     startActivity(intent)
+}
+fun Fragment.startUiActivity(clazz:Class<out Activity>){
+    startActivity(Intent(activity,clazz))
 }

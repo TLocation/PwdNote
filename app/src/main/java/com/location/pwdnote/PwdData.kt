@@ -1,6 +1,8 @@
 package com.location.pwdnote
 
+import android.os.Parcelable
 import androidx.room.*
+import kotlinx.android.parcel.Parcelize
 
 /**
  *
@@ -10,6 +12,7 @@ import androidx.room.*
  */
 
 @Entity(tableName = "pwd_table")
+@Parcelize
 data class PwdData(
     var userName: String,
     var pwd: String,
@@ -19,7 +22,7 @@ data class PwdData(
     val title: String,
     @Ignore
     var lock:Boolean = true
-){
+) : Parcelable {
     constructor(   userName: String,
                    pwd: String,
                    id: Long = 0,
