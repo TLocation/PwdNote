@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModel
  * time：2020/4/6 8:01 PM
  * description：
  */
-class BaseActivity<T:ViewModel>(@LayoutRes layoutId:Int) :AppCompatActivity(layoutId) {
-
+ class BaseActivity<T:ViewModel>(@LayoutRes layoutId:Int) :AppCompatActivity(layoutId) {
 
 }

@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 
 /**
  *
@@ -26,3 +28,8 @@ fun FragmentActivity.startActivity(clazz: Class<out Activity>, bundle: Bundle? =
 fun Fragment.startUiActivity(clazz:Class<out Activity>){
     startActivity(Intent(activity,clazz))
 }
+
+inline fun <reified T:Activity> FragmentActivity.startUIActivity(){
+    startActivity(Intent(this,T::class.java))
+}
+

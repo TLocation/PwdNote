@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,7 @@ import com.location.pwdnote.PwdData
 import com.location.pwdnote.R
 import com.location.pwdnote.modle.MainViewModle
 import com.location.pwdnote.toast
+import com.location.pwdnote.view.UpdateDataActivity
 import kotlinx.android.synthetic.main.dialog_show_pwd.*
 
 
@@ -56,7 +58,13 @@ class PwdDetailsDialog : DialogFragment() {
             dialog_show_username.text = getString(R.string.show_details_username, userName)
             dialog_show_pwd.text = getString(R.string.show_details_pwd, viewModle.showRealPwd(this))
         }
+        dialog_show_update.setOnClickListener {
 
+            startActivity(Intent(activity,UpdateDataActivity::class.java).also {
+                it.putExtra(UpdateDataActivity.EXERA_DATA,pwdData)
+            })
+            dismiss()
+        }
 
         dialog_show_delete.setOnClickListener {
             viewModle.delete(pwdData)

@@ -26,6 +26,7 @@
 				android:name="android.autofill"
 				android:resource="@xml/service_configuration" />
 		</service>
+		<activity android:name=".view.UpdateDataActivity"/>
 	</application>
 
 </manifest>

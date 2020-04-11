@@ -31,7 +31,13 @@ const val DECRYPT_MAX_SIZE = 256//每次最大解密长度
 
 
 fun String.encryRsa() = encryptByPublicKey(this)
-fun String.decryRsa() = decryptByPrivateKey(this)
+fun String.decryRsa() :String{
+    return try {
+        decryptByPrivateKey(this)
+    } catch (e: Exception) {
+        this
+    }
+}
 
 
 
